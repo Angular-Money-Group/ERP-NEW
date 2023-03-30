@@ -106,6 +106,7 @@ export class OperationsDB {
         doc[itemToUpdate].push(childId);
         doc.save();
       });
+      return Promise.resolve();
     } catch (error: any) {
       Logger.errorLog(error.message);
       return Promise.reject(error.message);

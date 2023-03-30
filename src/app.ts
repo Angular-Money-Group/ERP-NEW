@@ -9,7 +9,9 @@ import dashboardRouter from "./app/routers/dashboard.router";
 import { Logger } from "./app/services/logger.service";
 import cashiersRouter from "./app/routers/cashiers.controller";
 import saleRouter from "./app/routers/sale.router";
+import swaggerUi from "swagger-ui-express";
 
+import docs from "./app/docs";
 dotenv.config();
 
 export class App {
@@ -46,6 +48,8 @@ export class App {
 
   }
 
-  private swagger() { 
+  private swagger() {
+    Logger.infoLog("Loading Swagger");
+    this.server.use("/v2/api-docs", swaggerUi.serve, swaggerUi.setup(docs));
   }
 }
