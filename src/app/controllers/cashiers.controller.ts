@@ -225,6 +225,6 @@ export class CashiersController {
     } catch (error: any) {
       Logger.errorLog(error.message);
       return internalServerErrorResponse(res, error.message);
+    }
   }
-}
 }

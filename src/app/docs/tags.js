@@ -13,7 +13,7 @@ module.exports = {
         name: "Patrimônio", // name of a tag
       },
       {
-        name: "PDV", // name of a tag
+        name: "Vendas", // name of a tag
       },
       {
         name: "Caixas", // name of a tag

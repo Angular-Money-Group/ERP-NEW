@@ -1,6 +1,7 @@
 const login = require('./login');
 const register = require('./register');
 const logout = require('./logout');
+const refreshToken = require('./refreshToken');
 
 module.exports = {
     paths:{
@@ -12,6 +13,9 @@ module.exports = {
         },
         '/v2/auth/logout':{
             ...logout,
+        },
+        '/v2/auth/refreshToken':{
+            ...refreshToken,
         }
     }
 }

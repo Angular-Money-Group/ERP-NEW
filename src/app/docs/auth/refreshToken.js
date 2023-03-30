@@ -1,22 +1,19 @@
 module.exports = {
     post: {
+        security: [
+            {
+                bearerAuth: [],
+            },
+        ],
         tags: ["Auth"],
         description: "refreshToken",
         operationId: "refreshToken",
-        requestBody: {
-            content: {
-                "application/json": {
-                    schema: {
-                        $ref: "#/components/schemas/refreshTokenRequest",
-                    },
-                },
-            },
-        },
+        parameters: [],
         responses: {
             200: {
                 description: "Return accessToken!",
                 schema: {
-                    $ref: "#/components/schemas/refreshTokenResponse",
+                    $ref: "#/components/schemas/authRefreshTokenResponse",
                 },
             },
             401: {

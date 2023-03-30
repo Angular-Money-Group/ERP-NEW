@@ -7,7 +7,7 @@ import productsRouter from "./app/routers/products.router";
 import patrimonyRouter from "./app/routers/patrimony.router";
 import dashboardRouter from "./app/routers/dashboard.router";
 import { Logger } from "./app/services/logger.service";
-import cashiersRouter from "./app/routers/cashiers.controller";
+import cashiersRouter from "./app/routers/cashiers.router";
 import saleRouter from "./app/routers/sale.router";
 import swaggerUi from "swagger-ui-express";
 
