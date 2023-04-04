@@ -5,7 +5,7 @@ import { Router } from "express";
 const cashiersRouter = Router();
 
 cashiersRouter.get("/", authenticateToken, CashiersController.getCashiers);
-cashiersRouter.post("/", CashiersController.createCashier);
+cashiersRouter.post("/", authenticateToken, CashiersController.createCashier);
 
 cashiersRouter.get("/:id", authenticateToken, CashiersController.getCashierById);
 cashiersRouter.put("/:id", authenticateToken, CashiersController.updateCashier);
@@ -15,7 +15,7 @@ cashiersRouter.get("/history/:id", authenticateToken, CashiersController.getHist
 
 cashiersRouter.post("/closeCashier/:id", authenticateToken, CashiersController.closeCashier)
 cashiersRouter.post("/addCash/:id", authenticateToken, CashiersController.addMoneyFromCashier);
-cashiersRouter.post("/removeCash/:id", CashiersController.removeMoneyFromCashier);
+cashiersRouter.post("/removeCash/:id", authenticateToken, CashiersController.removeMoneyFromCashier);
 
 
 export default cashiersRouter;

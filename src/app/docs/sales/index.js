@@ -6,7 +6,7 @@ module.exports = {
         '/v2/sales':{
             ...sales,
         },
-        '/v2/sales/:id':{
+        '/v2/sales/{id}':{
             ...salesbyid,
         }
     }    

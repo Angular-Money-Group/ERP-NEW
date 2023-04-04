@@ -325,6 +325,57 @@ module.exports = {
           },
         },
       },
+      products: {
+        type: "object",
+        properties: {
+          id: {
+            type: "string",
+            description: "Identificador do produto",
+            example: "5f9f1b9b9c9d440000a1b1b1",
+          },
+          name: {
+            type: "string",
+            description: "Nome do produto",
+            example: "Coca-cola",
+          },
+          priceCost: {
+            type: "number",
+            description: "Preço de custo do produto",
+            example: 2.5,
+          },
+          priceSell: {
+            type: "number",
+            description: "Preço de venda do produto",
+            example: 3.5,
+          },
+          barCode: {
+            type: "string",
+            description: "Código de barras do produto",
+            example: "7891234567890",
+          },
+          category: {
+            type: "string",
+            description: "Categoria do produto",
+            example: "Bebidas",
+          },
+          description: {
+            type: "string",
+            description: "Descrição do produto",
+            example: "Refrigerante de cola",
+          },
+          createdAt: {
+            type: "string",
+            description: "Data de criação do produto",
+            example: "2020-10-30T18:00:00.000Z",
+          },
+          updatedAt: {
+            type: "string",
+            description: "Data de atualização do produto",
+            example: "2020-10-30T18:00:00.000Z",
+          },
+        },
+      },
+      
       genericSuccess: {
         type: "object",
         properties: {

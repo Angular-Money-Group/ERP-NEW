@@ -10,19 +10,19 @@ module.exports = {
         '/v2/cashiers':{
             ...cashier,
         },
-        "/v2/cashiers/:id": {
+        "/v2/cashiers/{id}": {
             ...cashiersById,
         },
-        "/v2/cashiers/history/:id": {
+        "/v2/cashiers/history/{id}": {
             ...cashiersHistoryById,
         },
-        "/v2/cashiers/closeCashier/:id": {
+        "/v2/cashiers/closeCashier/{id}": {
             ...closeCashier,
         },
-        "/v2/cashiers/addCash/:id": {
+        "/v2/cashiers/addCash/{id}": {
             ...addCash,
         },
-        "/v2/cashiers/removeCash/:id": {
+        "/v2/cashiers/removeCash/{id}": {
             ...removeCash,
         }
     }

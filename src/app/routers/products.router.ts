@@ -3,26 +3,26 @@ const productsRouter = express.Router();
 import cors from "cors";
 import ProductsController from "../controllers/products.controller";
 import { authenticateToken, verifyPermission } from "../utils/verifytoken";
-import multer, { MulterError } from 'multer';
+import multer, { MulterError } from "multer";
 
-const upload = multer({ dest: 'uploads/' });
+const upload = multer({ dest: "uploads/" });
 
 productsRouter.get(
-  "/products",
+  "/",
   cors(),
   authenticateToken,
   ProductsController.getProducts
 );
 
 productsRouter.get(
-  "/products/:id",
+  "/:id",
   cors(),
   authenticateToken,
   ProductsController.getProductById
 );
 
 productsRouter.post(
-  "/products",
+  "/",
   cors(),
   authenticateToken,
   verifyPermission,
@@ -30,14 +30,14 @@ productsRouter.post(
 );
 
 productsRouter.put(
-  "/products/:id",
+  "/:id",
   cors(),
   authenticateToken,
   verifyPermission,
   ProductsController.updateProduct
 );
 productsRouter.delete(
-  "/products/:id",
+  "/:id",
   cors(),
   authenticateToken,
   verifyPermission,
@@ -45,15 +45,15 @@ productsRouter.delete(
 );
 
 productsRouter.post(
-  "/stock/import",
+  "/stock",
   cors(),
   authenticateToken,
   verifyPermission,
-  upload.single('file'),
+  upload.single("file"),
   ProductsController.importProductsExcel
 );
 productsRouter.get(
-  "/stock/export",
+  "/stock",
   cors(),
   authenticateToken,
   verifyPermission,
