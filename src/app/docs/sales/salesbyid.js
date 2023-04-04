@@ -5,7 +5,7 @@ module.exports = {
         bearerAuth: [],
       },
     ],
-    tags: ["Sales"],
+    tags: ["Vendas"],
     summary: "Get sales by id",
     description: "Get sales by id",
     parameters: [

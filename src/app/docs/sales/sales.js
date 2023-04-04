@@ -5,7 +5,7 @@ module.exports = {
         bearerAuth: [],
       },
     ],
-    tags: ["Sales"],
+    tags: ["Vendas"],
     summary: "Get sales",
     description: "Get sales",
     requestBody: {
@@ -113,7 +113,7 @@ module.exports = {
         bearerAuth: [],
       },
     ],
-    tags: ["Sales"],
+    tags: ["Vendas"],
     summary: "Create sale",
     description: "Create sale",
     requestBody: {
