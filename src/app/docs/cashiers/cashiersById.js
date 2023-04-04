@@ -57,7 +57,7 @@ module.exports = {
     ],
     tags: ["Caixas"],
     description: "Create a cashier",
-    operationId: "createCashier",
+    operationId: "updateCashier",
     parameters: [
       {
         name: "id",

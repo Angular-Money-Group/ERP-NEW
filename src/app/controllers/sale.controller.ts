@@ -106,7 +106,7 @@ export const getSaleByDay = async (req: Request, res: Response) => {
 export const getSaleById = async (req: Request, res: Response) => {
   try {
     const { id } =
-      req.body;
+      req.params;
 
       Logger.infoLog(`Sale ID: ${id}`);
       const sale = Sales.getSaleById(id).then((sale) => sale);

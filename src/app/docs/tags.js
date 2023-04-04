@@ -4,7 +4,7 @@ module.exports = {
         name: "Auth", // name of a tag
       },
       {
-        name: "Home", // name of a tag
+        name: "Dashboard", // name of a tag
       },
       {
         name: "Produtos", // name of a tag

@@ -211,7 +211,7 @@ module.exports = {
         type: "object",
         properties: {
           user: {
-            type: ["object", "string"],
+            type: "string",
           },
           name: {
             type: "string",
@@ -220,18 +220,45 @@ module.exports = {
             type: "number",
           },
           stateCashier: {
-            $ref: "#/components/stateCashier",
+            type: "object",
+            properties: {
+              state: {
+                type: "string",
+              },
+              ip: {
+                type: "string",
+              },
+            },
           },
           history: {
             type: "array",
             items: {
-              $ref: "#/components/history",
+              type: "object",
+              properties: {
+                user: {
+                  type: "string",
+                },
+                operation: {
+                  type: "string",
+                },
+                value: {
+                  type: "number",
+                },
+                ip: {
+                  type: "string",
+                },
+                date: {
+                  type: "string",
+                  format: "date-time",
+                },
+              },
             },
           },
           sales: {
             type: "array",
             items: {
-              $ref: "#/components/sales",
+              type: "object",
+              properties: {},
             },
           },
           createdAt: {
@@ -257,6 +284,44 @@ module.exports = {
         properties: {
           value: {
             type: "number",
+          },
+        },
+      },
+      dashboard: {
+        type: "object",
+        properties: {
+          totalSell: {
+            type: "object",
+            properties: {
+              allDays: {
+                type: "number",
+                example: 30,
+              },
+              days: {
+                type: "array",
+                items: {
+                  type: "object",
+                  properties: {
+                    day: {
+                      type: "number",
+                      example: 1,
+                    },
+                    value: {
+                      type: "number",
+                      example: 0,
+                    },
+                  },
+                },
+              },
+            },
+          },
+          totalStock: {
+            type: "number",
+            example: 0,
+          },
+          totalPatrimony: {
+            type: "number",
+            example: 0,
           },
         },
       },
