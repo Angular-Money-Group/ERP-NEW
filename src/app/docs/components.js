@@ -325,14 +325,6 @@ module.exports = {
           },
         },
       },
-      genericError: {
-        type: "object",
-        properties: {
-          message: {
-            type: "string",
-          },
-        },
-      },
       genericSuccess: {
         type: "object",
         properties: {
