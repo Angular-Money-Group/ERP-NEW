@@ -10,7 +10,8 @@ import { Logger } from "./app/services/logger.service";
 import cashiersRouter from "./app/routers/cashiers.router";
 import saleRouter from "./app/routers/sale.router";
 import swaggerUi from "swagger-ui-express";
-
+import employeeRouter from "./app/routers/employee.router";
+import clientRouter from "./app/routers/clients.router";
 import docs from "./app/docs";
 dotenv.config();
 
@@ -45,7 +46,8 @@ export class App {
     this.server.use("/v2/patrimony", patrimonyRouter);
     this.server.use("/v2/cashiers", cashiersRouter);
     this.server.use("/v2/sales", saleRouter);
-
+    this.server.use("/v2/employee", employeeRouter);
+    this.server.use("/v2/clients", clientRouter);
   }
 
   private swagger() {

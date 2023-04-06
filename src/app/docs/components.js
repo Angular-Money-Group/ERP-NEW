@@ -375,7 +375,47 @@ module.exports = {
           },
         },
       },
-      
+      Employee: {
+        type: "object",
+        properties: {
+          name: {
+            type: "string",
+            description: "Nome do funcionário",
+            example: "João da Silva",
+          },
+          email: {
+            type: "string",
+            description: "Email do funcionário",
+            example: "teste@teste.com",
+          },
+          password: {
+            type: "string",
+            description: "Senha do funcionário",
+            example: "123456",
+          },
+          cpf: {
+            type: "string",
+            description: "CPF do funcionário",
+            example: "12345678910",
+          },
+          isTemporary: {
+            type: "boolean",
+            description: "Se o funcionário tem senha temporária",
+            example: false,
+          },
+          role: {
+            type: "string",
+            description: "Cargo do funcionário",
+            example: "employee",
+          },
+          createdAt: {
+            type: "string",
+            description: "Data de criação do funcionário",
+            example: "2020-10-30T18:00:00.000Z",
+          },
+        },
+      },
+
       genericSuccess: {
         type: "object",
         properties: {

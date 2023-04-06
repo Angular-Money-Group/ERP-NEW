@@ -4,6 +4,7 @@ const dashboard = require('./dashboard');
 const sales = require('./sales');
 const products = require('./products');
 const patrimony = require('./patrimony');
+const employee = require('./employee');
 
 module.exports = {
     paths:{
@@ -12,6 +13,7 @@ module.exports = {
         ...sales.paths,
         ...dashboard.paths,
         ...products.paths,
-        ...patrimony.paths
+        ...patrimony.paths,
+        ...employee.paths
     }
 }
