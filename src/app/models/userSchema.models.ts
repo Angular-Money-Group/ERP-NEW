@@ -15,7 +15,7 @@ const UserSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ['admin', 'employee'],
+        enum: ['adm', 'vend'],
         required: true
     },
     cpfCnpj: {
