@@ -1,4 +1,3 @@
-import { Logger } from './../services/logger.service';
 import { Cashier } from './../models/cashiersSchema.model';
 import { successResponse, badRequestResponse, unprocessableEntityResponse } from './../utils/responses.utils';
 import { Request, Response } from "express";
@@ -15,72 +14,56 @@ export const login = async (req: Request, res: Response) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      Logger.errorLog("Email or password not provided");
       return unprocessableEntityResponse(res);
     }
 
-    Logger.infoLog("Email and password provided");
     const user: any = await userSchema.findOne({ email: email });
 
     if (!user) {
-      Logger.infoLog("User not found, trying to find employee")
       const employee: any = await EmployeeModel.findOne({ email: email });
 
       if (!employee) {
-        Logger.errorLog("Employee not found")
         return badRequestResponse(res);
       } else {
-        Logger.infoLog("Employee found")
 
-        const isMatch = await bcrypt.compare(password, employee.password);        
+        const isMatch = bcrypt.compare(password, employee.password);
+
         if (!isMatch) {
-          Logger.errorLog("Password not match")
           return badRequestResponse(res);
         }
 
-        Logger.infoLog("Password match")
         delete employee.password;
         
-        Logger.infoLog("Generating tokens")
         const { accessToken, refreshToken } = generateTokens(employee);
 
-        Logger.infoLog("Setting cookie")
         res.cookie("refreshToken", refreshToken, {
           httpOnly: true,
           secure: true,
           sameSite: "none",
           maxAge: 7 * 24 * 60 * 60 * 1000, // tempo de vida de 7 dias
         });
-        Logger.infoLog("Returning success response")
         return successResponse(res, { accessToken });
       }
     }
 
-    Logger.infoLog("User found")
-    const isMatch = await bcrypt.compare(password, user!.password);
+    const isMatch =  bcrypt.compare(password, user!.password);
 
     if (!isMatch) {
-      Logger.errorLog("Password not match")
       return badRequestResponse(res);
     }
 
-    Logger.infoLog("Password match")
     delete user.password;
-    Logger.infoLog("Generating tokens")
     const { accessToken, refreshToken } = generateTokens(user);
 
-    Logger.infoLog("Setting cookie")
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
       secure: true,
       sameSite: "none",
-      maxAge: 7 * 24 * 60 * 60 * 1000, // tempo de vida de 7 dias
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-    Logger.infoLog("Returning success response")
     return successResponse(res, { accessToken });
   } catch (error: any) {
-    Logger.errorLog(error.message)
     return internalServerErrorResponse(res, error.message)
   }
 };

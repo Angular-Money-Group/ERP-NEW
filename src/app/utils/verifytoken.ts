@@ -24,7 +24,7 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
 
   export const verifyPermission = (req: Request, res: Response, next: NextFunction) => {
     const { role } = req.body.user;
-    if (role !== "admin") {
+    if (role !== "adm") {
       return forbiddenResponse(res)
     }
     next();
