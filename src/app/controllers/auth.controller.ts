@@ -17,56 +17,48 @@ export const login = async (req: Request, res: Response) => {
       return unprocessableEntityResponse(res);
     }
 
-    const user: any = await userSchema.findOne({ email: email });
+    const user = await userSchema.findOne({ email: email }).select('+password')
 
     if (!user) {
-      const employee: any = await EmployeeModel.findOne({ email: email });
-
-      if (!employee) {
-        return badRequestResponse(res);
-      } else {
-
-        const isMatch = bcrypt.compare(password, employee.password);
-
-        if (!isMatch) {
-          return badRequestResponse(res);
-        }
-
-        delete employee.password;
-        
-        const { accessToken, refreshToken } = generateTokens(employee);
-
-        res.cookie("refreshToken", refreshToken, {
-          httpOnly: true,
-          secure: true,
-          sameSite: "none",
-          maxAge: 7 * 24 * 60 * 60 * 1000, // tempo de vida de 7 dias
-        });
-        return successResponse(res, { accessToken });
-      }
+      return badRequestResponse(res);
     }
 
-    const isMatch =  bcrypt.compare(password, user!.password);
+    let authenticatedUser: any;
+
+    if (user) {
+      authenticatedUser = user;
+    }
+    
+    const isMatch = await comparePassword(password, authenticatedUser.password);
 
     if (!isMatch) {
       return badRequestResponse(res);
     }
 
-    delete user.password;
-    const { accessToken, refreshToken } = generateTokens(user);
+    delete authenticatedUser.password;
 
-    res.cookie("refreshToken", refreshToken, {
-      httpOnly: true,
-      secure: true,
-      sameSite: "none",
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-    });
+    const { accessToken, refreshToken } = generateTokens(authenticatedUser);
+
+    // setRefreshTokenCookie(res, refreshToken);
 
     return successResponse(res, { accessToken });
   } catch (error: any) {
-    return internalServerErrorResponse(res, error.message)
+    return internalServerErrorResponse(res, error.message);
   }
 };
+
+async function comparePassword(candidatePassword: string, hashedPassword: string): Promise<boolean> {
+  return bcrypt.compare(candidatePassword, hashedPassword);
+}
+
+function setRefreshTokenCookie(res: Response, refreshToken: string) {
+  res.cookie("refreshToken", refreshToken, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+  });
+}
 
 export const register = async (req: Request, res: Response) => {
   const { name, email, password, cpfCnpj, role } = req.body;
