@@ -28,7 +28,7 @@ export const login = async (req: Request, res: Response) => {
     if (user) {
       authenticatedUser = user;
     }
-    
+
     const isMatch = await comparePassword(password, authenticatedUser.password);
 
     if (!isMatch) {
@@ -68,38 +68,49 @@ export const register = async (req: Request, res: Response) => {
       return unprocessableEntityResponse(res);
     }
 
-    const checkUser = await userSchema.find({ email: email });
+    const checkUser = await userSchema.findOne({ email: email });
 
-    if (checkUser.length > 0) {
+    if (checkUser) {
       return badRequestResponse(res);
     }
 
     const salt = await bcrypt.genSalt(16);
     const hashPassword = await bcrypt.hash(password, salt);
 
-    const newUser = new userSchema({
-      name,
-      email,
-      password: hashPassword,
-      cpfCnpj,
-      role,
-    });
+    const session = await userSchema.startSession();
 
-    await newUser
-      .save()
-      .then((user) => {
-        cashierMock.forEach((cashier: Cashier) => {
-          cashier.user = user._id;       
-          new CashiersModel(cashier).save();
-      })
-        return successResponse(res, user)
-      })
-      .catch((err) => {
-        console.log(err);
-        return internalServerErrorResponse(res, err.message)
+    session.startTransaction();
+
+    try {
+      const newUser = new userSchema({
+        name,
+        email,
+        password: hashPassword,
+        cpfCnpj,
+        role,
       });
+
+      const user = await newUser.save();
+
+      await Promise.all(
+        cashierMock.map(async (cashier) => {
+          cashier.user = user._id;
+          await new CashiersModel(cashier).save();
+        })
+      );
+
+      await session.commitTransaction();
+      session.endSession();
+
+      return successResponse(res, user);
+    } catch (error: any) {
+      await session.abortTransaction();
+      session.endSession();
+      console.error(error);
+      return internalServerErrorResponse(res, error.message);
+    }
   } catch (error: any) {
-    return internalServerErrorResponse(res, error.message)
+    return internalServerErrorResponse(res, error.message);
   }
 };
 
