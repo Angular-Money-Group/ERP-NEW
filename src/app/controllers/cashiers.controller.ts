@@ -128,6 +128,44 @@ export class CashiersController {
     }
   }
 
+  public static async openCashier(req: Request, res: Response) {
+    const { id } = req.params;
+    const { totalCash } = req.body;
+
+    if (!totalCash) {
+      Logger.errorLog("Total cash is required");
+      return unprocessableEntityResponse(res);
+    }
+
+    try {
+      Logger.infoLog(`Closing cashier ${id}`);
+      const cashier = await CashiersService.getCashierById(id);
+
+      if (!cashier) {
+        return notFoundResponse(res);
+      }
+
+      Logger.infoLog(`Cashier ${id} found`);
+      cashier.totalCash = totalCash;
+      cashier.status = "Aberto";
+      cashier.updatedAt = new Date();
+      cashier.history.push({
+        user: req.body.user._id,
+        operation: "Abertura",
+        value: totalCash,
+        date: Date.now(),
+      });
+
+      Logger.infoLog(`Saving cashier ${id}`);
+      await cashier.save();
+
+      return successResponse(res, cashier);
+    } catch (error: any) {
+      Logger.errorLog(error.message);
+      return internalServerErrorResponse(res, error.message);
+    }
+  }
+
   public static async addMoneyFromCashier(req: Request, res: Response) {
     const { id } = req.params;
     const { value } = req.body;

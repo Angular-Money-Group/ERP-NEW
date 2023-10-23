@@ -14,6 +14,8 @@ cashiersRouter.delete("/:id", authenticateToken, CashiersController.deleteCashie
 cashiersRouter.get("/history/:id", authenticateToken, CashiersController.getHistory);
 
 cashiersRouter.post("/closeCashier/:id", authenticateToken, CashiersController.closeCashier)
+cashiersRouter.post("/openCashier/:id", authenticateToken, CashiersController.openCashier)
+
 cashiersRouter.post("/addCash/:id", authenticateToken, CashiersController.addMoneyFromCashier);
 cashiersRouter.post("/removeCash/:id", authenticateToken, CashiersController.removeMoneyFromCashier);
 

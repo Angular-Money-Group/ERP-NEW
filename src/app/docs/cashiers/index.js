@@ -19,6 +19,9 @@ module.exports = {
         "/v2/cashiers/closeCashier/{id}": {
             ...closeCashier,
         },
+        "/v2/cashiers/openCashier/{id}": {
+            ...closeCashier,
+        },
         "/v2/cashiers/addCash/{id}": {
             ...addCash,
         },
